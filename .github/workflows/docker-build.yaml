@@ -25,4 +25,6 @@ jobs:
       with:
         context: .
         push: true
-        tags: kumar2167/demo-nginx: ${{ github.sha }}
+        tags: |
+          kumar2167/demo-nginx:latest
+          kumar2167/demo-nginx: ${{ github.sha }}
