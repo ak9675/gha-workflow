@@ -28,3 +28,17 @@ jobs:
         tags: |
           kumar2167/demo-nginx:latest
           kumar2167/demo-nginx:${{ github.sha }}
+
+    - name: Update application Repo
+      run: |
+        git clone https://${{ secrets.GITOPS_PAT }}@github.com/ak9675/argocdrepo.git
+
+        cd argocdrepo
+
+        sed -i "s|image:.*|image: kumar2167/demo-nginx:${GITHUB_SHA}|g" dep.yaml
+        git config user.name "gha"
+        git config user.email "gha@github.com"
+
+        git add .
+        git commit -m "update image tag to ${GITHUB_SHA}"
+        git push
